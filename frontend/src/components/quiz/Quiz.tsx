@@ -1,7 +1,7 @@
 import { Box, Button } from "@mui/material";
-import { useEffect, useState } from "react"
 
 interface Quiz {
+    id: string,
     question: string,
     answer1: string,
     answer2: string,
@@ -9,67 +9,45 @@ interface Quiz {
     answer4: string
 }
 
-function Quiz() {
-    const [quiz, setQuiz] = useState<Quiz>();
-    const [disabled, setDisabled] = useState(false);
-    const [correctAnswer, setCorrectAnswer] = useState(0)
-    const [givenAnswer, setgivenAnswer] = useState(0)
+interface Props {
+    quiz: Quiz
+    setSelectedAnswer: (value: number) => void,
+    selectedAnswer: number
+}
 
-    useEffect(() => {
-        setQuiz({
-            question: "Alege 1",
-            answer1: "1",
-            answer2: "2",
-            answer3: "3",
-            answer4: "4"
-        })
-    }, [])
-
-    const fetchCorrectAnswer = (): number => {
-        return 1;
-    };
-    
-    const checkAnswer = async (id: number) => {
-        const answer = fetchCorrectAnswer(); // Ensure async behavior for clarity
-        setDisabled(true);
-        setCorrectAnswer(answer)
-
-        // Use the "id" comparison here, since the state may not have updated
-        setgivenAnswer(id)
-        if (id === answer) { // Hard-code or pass the updated answer instead
-            isCorrect(id);
-        } else {
-            isWrong(id);
-        }
-    };
-    
-
-    const isCorrect = (id: number) => {
-        console.log("DAAAAA " + id)
-    }
-
-    const isWrong = (id: number) => {
-        console.log("NUUUUU " + id)
-    }
+function Quiz({
+    quiz,
+    setSelectedAnswer,
+    selectedAnswer
+} : Props) {
     return (
         <>
             {quiz ? 
             <Box
-                
+                display={"flex"}
+                flexDirection={"column"}
+                width={"80%"}
+                height={"80%"}
+                gap={"5vh"}
             >
                 {quiz.question}
-                <Box>
+                <Box
+                    display={"grid"}
+                    gridTemplateColumns={"repeat(2, 1fr)"}
+                    gridTemplateRows={"repeat(2, 1fr)"}
+                    gap={"10%"}
+                    width={"100%"}
+                    height={"100%"}
+                    
+                >
                     {[1, 2, 3, 4].map((answerId) => (
                         <Button
                             key={answerId}
                             variant="outlined"
-                            onClick={() => checkAnswer(answerId)}
-                            disabled={disabled}
+                            onClick={() => setSelectedAnswer(answerId)}
                             sx={{
-                                borderColor: "pink",
-                                ":disabled": {
-                                    borderColor: answerId === correctAnswer ? "green" : givenAnswer === answerId ? "red" : "gray"
-                                }
+                                fontSize: "1.5rem",
+                                borderColor: answerId === selectedAnswer ? "green" : "pink",
                             }}
                         >
                             {quiz[`answer${answerId}` as keyof Quiz]}
