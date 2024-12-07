@@ -66,6 +66,12 @@ def verify():
 
     return jsonify(reply)
 
+@app.route('/music', methods=['GET'])
+def get_top_playlists():
+    db = mongo.cx["quizdb"]
+    collection = db.playlists
+    results = list(collection.find({}, {'_id': 0}))
+    return jsonify(results)
 
 
 if __name__ == "__main__":
