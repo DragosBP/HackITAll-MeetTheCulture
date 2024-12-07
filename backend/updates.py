@@ -11,12 +11,26 @@ def get_spotify_playlist(country, playlists_collection):
     query = "q=top+songs+" + country
     result = sp.search(q=query, type="playlist")
     items = result['playlists']['items']
-    playlists = []
+
+    # url = 'https://iso3166-updates.com/api/name/' + country
+    url = 'https://flagcdn.com/en/codes.json'
+    r = requests.get(url)
+    # soup = BeautifulSoup(r.text, "lxml")
+    # code = soup.text[2:4]
+    # print(code, end='\n\n\n')
+    content = r.json()
+    for key, value in content.items():
+         if value == country:
+              code = key
+    # print(code, end='\n\n')
+    img = 'https://flagcdn.com/256x192/{}.png'.format(code)
+
     cnt = 1
     for item in items:
         if item is not None and cnt <= 5:
+                # img = 
                 playlist = item['external_urls']['spotify']
-                playlists_collection.update_one({"name": "Top Songs - {} {}".format(country, cnt)}, {"$set":{"link": playlist}}, upsert=True)
+                playlists_collection.update_one({"name": "Top Songs - {} {}".format(country, cnt)}, {"$set":{"link": playlist, "img": img}}, upsert=True)
                 cnt += 1
     pass
 
@@ -55,3 +69,30 @@ def update_daily_holiday():
     # print(day_info)
     pass
 
+def get_cooking_recipes():
+    # url = 'https://www.bbcgoodfood.com/recipes/category/cuisine-collections'
+    # r = requests.get(url)
+    # soup = BeautifulSoup(r.text, "html.parser")
+    
+    
+    # mongo_client = MongoClient(mongodb_uri)
+    # db = mongo_client['quizdb']
+    # db.create_collection('recipes')
+    # collection = db['recipes']
+    # recipes = list(collection.find({}, {'_id': 0}))
+    # for rec in recipes:
+    #     food_type = rec.get('food_type')
+    #     result = soup.find('article', attrs={'data-item-name': food_type})
+    #     image = result.img
+    #     image = image['src']
+    #     collection.update_one({'food_type': food_type}, {'$set': {'img': image}})
+        # print(image)
+    # for recipe in res[:-2]:
+    #     linkdiv = recipe.a
+    #     link = linkdiv['href']
+    #     link = url + link
+    #     # print(linkdiv)
+    #     food_type = linkdiv.h2.text
+    #     collection.insert_one({'food_type': food_type, 'link': link})
+    #     # print(food_type, link)
+    pass
