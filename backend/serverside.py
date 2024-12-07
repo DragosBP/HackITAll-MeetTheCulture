@@ -58,7 +58,7 @@ def verify():
     for answer in data:
         question = list(collection.find({"id": answer.get('id')}, {"_id": 0}))
         if question[0].get('ca') == answer.get('ans'):
-            d = {'correct': True}
+            d = {'correct': True, 'ca': question[0].get('ca')}
         else:
             d = {'correct': False, 'ca': question[0].get('ca')}
         question.append(d)
