@@ -19,7 +19,7 @@ export interface ResultProps {
 
 export interface SongInterface {
     name: string
-    artsist: string
+    artist: string
     country: string
     link: string
 }
