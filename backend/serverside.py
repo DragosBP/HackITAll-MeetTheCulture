@@ -57,12 +57,12 @@ def verify():
     reply = []
     for answer in data:
         question = list(collection.find({"id": answer.get('id')}, {"_id": 0}))
+        q = question[0]
         if question[0].get('ca') == answer.get('ans'):
-            d = {'correct': True, 'ca': question[0].get('ca')}
+            q['correct'] =  True
         else:
-            d = {'correct': False, 'ca': question[0].get('ca')}
-        question.append(d)
-        reply.append(question)
+            q['correct'] = False
+        reply.append(q)
 
     return jsonify(reply)
 
