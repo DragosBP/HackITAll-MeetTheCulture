@@ -2,19 +2,12 @@ import { useEffect, useState } from "react"
 import Quiz from "./Quiz"
 import { Box, Button } from "@mui/material"
 import fetch_url from "../../providers/url.provider"
-
-interface QuizInterface {
-    id: string,
-    question: string,
-    a1: string,
-    a2: string,
-    a3: string,
-    a4: string
-}
+import { QuizInterface, ResultProps } from "../Intrefaces";
+import ResultList from "./ResultList";
 
 interface Answer {
     id: string,
-    answer: number,
+    ans: number,
 }
 
 const url: string = fetch_url();
@@ -26,6 +19,8 @@ function QuizList() {
     
     const [answers, setAnswers] = useState<Answer[]>([]);
     const [selectedAnswers, setSelectedAnswers] = useState([0, 0, 0, 0, 0])
+
+    const [results, setResults] = useState<ResultProps[]>([])
 
     useEffect(() => {
         let isFetched = false;
@@ -43,6 +38,8 @@ function QuizList() {
                     console.log(data)
                     setQuizes(data)
                 })
+            } else {
+                console.log("Problem with fetching quizes")
             }
         }
 
@@ -55,7 +52,22 @@ function QuizList() {
 
     useEffect(() => {
         const sendAnswers = () => {
-            console.log(answers)
+            fetch(url + "verify", {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json" // Ensure the server expects JSON data
+                },
+                body: JSON.stringify(answers) 
+            }).then((response) => {
+                if (response.status === 200) {
+                    response.json().then((data) => {
+                        console.log(data)
+                        setResults(data)
+                    })
+                } else {
+                    console.log("Eroare la trimitere de raspunsuri")
+                }
+            })
         }
         
         if (nr === 5)
@@ -63,10 +75,10 @@ function QuizList() {
         
     }, [answers, nr])
 
-    const addAnswer = (id: string, answer: number) => {
+    const addAnswer = (id: string, ans: number) => {
         setAnswers((prevAnswers) => [...prevAnswers, {
             id,
-            answer
+            ans
         }]);
     }
 
@@ -126,10 +138,10 @@ function QuizList() {
             }
             </Box>
             : 
-            <Box
-                fontSize={"2rem"}
-            >
-            </Box>
+            <ResultList 
+                results={results}
+                selectedAnswers={selectedAnswers}
+            />
             }
         </>
     )

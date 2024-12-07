@@ -1,20 +1,7 @@
+import { Box, Button } from "@mui/material"
+import { ResultProps } from "../Intrefaces"
 import Result from "./Result"
-
-interface ResultProps {
-    question: string,
-    correct: boolean,
-    correctAnswer?: number,
-    triviaFact?: string
-}
-
-interface QuizInterface {
-    id: string,
-    question: string,
-    answer1: string,
-    answer2: string,
-    answer3: string,
-    answer4: string
-}
+import { useNavigate } from "react-router-dom"
 
 interface Props {
     results: ResultProps[]
@@ -23,22 +10,50 @@ interface Props {
 }
 
 function ResultList({
-    results
+    results,
+    selectedAnswers
 }: Props) {
+
+    const navigate = useNavigate();
+
+    const redirectToHome = () => {
+        const today = new Date().toISOString().split("T")[0];
+        // localStorage.setItem("quizDate", today); // TODO - uncomment tis at the end
+        navigate("/"); 
+    };
 
     return (
         <>
         {
             results ?
-            <>
-                {
-                    results.map((result: ResultProps) => {
+            <Box
+                display={"flex"}
+                flexDirection={"column"}
+                justifyContent={"space-between"}
+                alignContent={"center"}
+                gap={"70vh"}
+            >
+                <Box
+                    display={"flex"}
+                    flexDirection={"row"}
+                    justifyContent={"space-around"}
+                >
+                    {results.map((result: ResultProps, index: number) => (
                         <Result 
                             result={result}
+                            selectedAnswer={selectedAnswers[index]}
+                            key={index}
                         />
-                    })
-                }
-            </> : 
+                    ))}
+                    
+                </Box>
+                <Button
+                    onClick={redirectToHome}
+                >
+                    Return Home
+                </Button>
+            </Box>
+            :
             <>
                 Loading
             </>
