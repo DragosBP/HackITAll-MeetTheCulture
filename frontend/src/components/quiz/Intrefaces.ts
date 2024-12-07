@@ -9,7 +9,10 @@ export interface QuizInterface {
 
 export interface ResultProps {
     question: string,
-    correct: boolean,
-    correctAnswer?: number,
-    triviaFact?: string
+    a1: string,
+    a2: string,
+    a3: string,
+    a4: string
+    ca: number
+    correct: boolean
 }

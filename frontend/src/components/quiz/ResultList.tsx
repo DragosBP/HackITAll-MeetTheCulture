@@ -1,11 +1,5 @@
+import { ResultProps } from "./Intrefaces"
 import Result from "./Result"
-
-interface ResultProps {
-    question: string,
-    correct: boolean,
-    correctAnswer?: number,
-    triviaFact?: string
-}
 
 interface Props {
     results: ResultProps[]
@@ -14,7 +8,8 @@ interface Props {
 }
 
 function ResultList({
-    results
+    results,
+    selectedAnswers
 }: Props) {
 
     return (
@@ -23,9 +18,10 @@ function ResultList({
             results ?
             <>
                 {
-                    results.map((result: ResultProps) => {
+                    results.map((result: ResultProps, index: number) => {
                         <Result 
                             result={result}
+                            selectedAnswer={selectedAnswers[index]}
                         />
                     })
                 }
