@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
+from flask_cors import CORS
 import random
 
 app = Flask(__name__)
+CORS(app)
 
 uri = "mongodb+srv://leonardgciobanu:7u4AhKVnnMqjc8Gu@hackitall.3mrjg.mongodb.net/?retryWrites=true&w=majority&appName=HackITAll"
 
@@ -13,8 +15,6 @@ def get_id():
     global id
     id = id + 1
     return id
-
-
 
 # client = pymongo.MongoClient(uri)
 

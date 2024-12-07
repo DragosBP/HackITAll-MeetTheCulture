@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react"
 import Quiz from "./Quiz"
 import { Box, Button } from "@mui/material"
+import fetch_url from "../../providers/url.provider"
 
 interface QuizInterface {
     id: string,
     question: string,
-    answer1: string,
-    answer2: string,
-    answer3: string,
-    answer4: string
+    a1: string,
+    a2: string,
+    a3: string,
+    a4: string
 }
 
 interface Answer {
     id: string,
     answer: number,
 }
+
+const url: string = fetch_url();
 
 function QuizList() {
     
@@ -25,48 +28,29 @@ function QuizList() {
     const [selectedAnswers, setSelectedAnswers] = useState([0, 0, 0, 0, 0])
 
     useEffect(() => {
-        setQuizes([
-            {
-                id: "1",
-                question: "Alege 1",
-                answer1: "1",
-                answer2: "2",
-                answer3: "3",
-                answer4: "4"
-            },
-            {
-                id: "2",
-                question: "Alege 2",
-                answer1: "1",
-                answer2: "2",
-                answer3: "3",
-                answer4: "4"
-            },
-            {
-                id: "3",
-                question: "Alege 3",
-                answer1: "1",
-                answer2: "2",
-                answer3: "3",
-                answer4: "4"
-            },
-            {
-                id: "4",
-                question: "Alege 4",
-                answer1: "1",
-                answer2: "2",
-                answer3: "3",
-                answer4: "4"
-            },
-            {
-                id: "5",
-                question: "Alege",
-                answer1: "1",
-                answer2: "2",
-                answer3: "3",
-                answer4: "4"
+        let isFetched = false;
+
+        const func = async () => {
+            if (isFetched)
+                return
+
+            const response =  await fetch(url + "/quiz/all", {
+                method: "get"
+            })
+
+            if (response.status === 200) {
+                response.json().then((data) => {
+                    console.log(data)
+                    setQuizes(data)
+                })
             }
-        ])
+        }
+
+        func()
+
+        return () => {
+            isFetched = true; 
+        };
     }, [])
 
     useEffect(() => {

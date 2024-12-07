@@ -3,10 +3,10 @@ import { Box, Button } from "@mui/material";
 interface Quiz {
     id: string,
     question: string,
-    answer1: string,
-    answer2: string,
-    answer3: string,
-    answer4: string
+    a1: string,
+    a2: string,
+    a3: string,
+    a4: string
 }
 
 interface Props {
@@ -50,7 +50,7 @@ function Quiz({
                                 borderColor: answerId === selectedAnswer ? "green" : "pink",
                             }}
                         >
-                            {quiz[`answer${answerId}` as keyof Quiz]}
+                            {quiz[`a${answerId}` as keyof Quiz]}
                         </Button>
                     ))}
                 </Box>
