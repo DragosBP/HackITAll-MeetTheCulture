@@ -53,14 +53,18 @@ def all_quizez():
 def verify():
     data = request.json
     db = mongo.cx["quizdb"]
-    collection = db.quizcollection    
-    question = list(collection.find({"id": data.get('id')}, {"_id": 0}))
-    if question[0].get('ca') == data.get('ans'):
-        d = {'correct': True}
-    else:
-        d = {'correct': False, 'ca': question[0].get('ca')}
-    question.append(d)
-    return jsonify(question)
+    collection = db.quizcollection
+    reply = []
+    for answer in data:
+        question = list(collection.find({"id": answer.get('id')}, {"_id": 0}))
+        if question[0].get('ca') == answer.get('ans'):
+            d = {'correct': True}
+        else:
+            d = {'correct': False, 'ca': question[0].get('ca')}
+        question.append(d)
+        reply.append(question)
+
+    return jsonify(reply)
 
 
 
