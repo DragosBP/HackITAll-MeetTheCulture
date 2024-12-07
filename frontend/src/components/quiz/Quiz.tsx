@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/material";
-import { QuizInterface } from "./Intrefaces";
+import { QuizInterface } from "../Intrefaces";
 
 interface Props {
     quiz: QuizInterface

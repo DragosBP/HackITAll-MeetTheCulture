@@ -16,3 +16,10 @@ export interface ResultProps {
     ca: number
     correct: boolean
 }
+
+export interface SongInterface {
+    name: string
+    artsist: string
+    country: string
+    link: string
+}

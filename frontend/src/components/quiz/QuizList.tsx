@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import Quiz from "./Quiz"
 import { Box, Button } from "@mui/material"
 import fetch_url from "../../providers/url.provider"
-import { QuizInterface, ResultProps } from "./Intrefaces";
+import { QuizInterface, ResultProps } from "../Intrefaces";
+import ResultList from "./ResultList";
 
 interface Answer {
     id: string,
@@ -37,6 +38,8 @@ function QuizList() {
                     console.log(data)
                     setQuizes(data)
                 })
+            } else {
+                console.log("Problem with fetching quizes")
             }
         }
 
@@ -135,10 +138,10 @@ function QuizList() {
             }
             </Box>
             : 
-            <Box
-                fontSize={"2rem"}
-            >
-            </Box>
+            <ResultList 
+                results={results}
+                selectedAnswers={selectedAnswers}
+            />
             }
         </>
     )

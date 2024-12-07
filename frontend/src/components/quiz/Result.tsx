@@ -1,5 +1,5 @@
 import { Box } from "@mui/material"
-import { ResultProps } from "./Intrefaces"
+import { ResultProps } from "../Intrefaces"
 import { useEffect, useState } from "react"
 
 interface Props {
@@ -59,7 +59,11 @@ function Result({
     }, [result.a1, result.a2, result.a3, result.a4, result.ca, selectedAnswer])
 
     return (
-        <>
+        <Box
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent={"space-evenly"}
+        >
             <Box>
                 {`
                 Question: ${result.question}
@@ -86,12 +90,12 @@ function Result({
 
                     <Box>
                         {`
-                        Your Answer: ${correct}
+                        Correct Answer: ${correct}
                         `}
                     </Box>
                 </>
             }
-        </>
+        </Box>
     )
 }
 
