@@ -7,15 +7,6 @@ interface ResultProps {
     triviaFact?: string
 }
 
-interface QuizInterface {
-    id: string,
-    question: string,
-    answer1: string,
-    answer2: string,
-    answer3: string,
-    answer4: string
-}
-
 interface Props {
     results: ResultProps[]
     selectedAnswers: number[]

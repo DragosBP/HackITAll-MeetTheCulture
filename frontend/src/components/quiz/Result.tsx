@@ -1,11 +1,5 @@
 import { Box } from "@mui/material"
-
-interface ResultProps {
-    question: string,
-    correct: boolean,
-    correctAnswer?: number,
-    triviaFact?: string
-}
+import { ResultProps } from "./Intrefaces"
 
 interface Props {
     result: ResultProps
@@ -17,9 +11,30 @@ function Result({
 
     return (
         <>
-        <Box>
-            {``}
-        </Box>
+            <Box>
+                {`
+                Question: ${result.question}
+                `}
+            </Box>
+            {
+                result.correct ? 
+                <Box
+                    color={"green"}
+                >
+                    {`
+                    Your Answer: ${result.question}
+                    `}
+                </Box>
+                :
+                <>
+                    <Box>
+                        {`
+                        Your Answer: ${result.question}
+                        Correct Answer: ${result.question}
+                        `}
+                    </Box>
+                </>
+            }
         </>
     )
 }

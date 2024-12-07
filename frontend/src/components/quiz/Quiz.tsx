@@ -1,16 +1,8 @@
 import { Box, Button } from "@mui/material";
-
-interface Quiz {
-    id: string,
-    question: string,
-    a1: string,
-    a2: string,
-    a3: string,
-    a4: string
-}
+import { QuizInterface } from "./Intrefaces";
 
 interface Props {
-    quiz: Quiz
+    quiz: QuizInterface
     setSelectedAnswer: (value: number) => void,
     selectedAnswer: number
 }
