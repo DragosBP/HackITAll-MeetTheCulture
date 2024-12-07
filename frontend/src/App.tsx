@@ -1,10 +1,10 @@
-import { useState } from 'react'
 import './App.css'
+import Quiz from './components/quiz/Quiz'
 
 function App() {
   return (
     <>
-      Hello
+      <Quiz/>
     </>
   )
 }
