@@ -1,10 +1,10 @@
 import './App.css'
-import Quiz from './components/quiz/Quiz'
+import QuizList from './components/quiz/QuizList'
 
 function App() {
   return (
     <>
-      <Quiz/>
+      <QuizList/>
     </>
   )
 }
