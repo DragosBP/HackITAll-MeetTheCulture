@@ -29,14 +29,16 @@ function ResultList({
             <Box
                 display={"flex"}
                 flexDirection={"column"}
-                justifyContent={"space-between"}
+                justifyContent={"space-around"}
                 alignContent={"center"}
-                gap={"70vh"}
-            >
+                width={"100%"}
+                >
                 <Box
+                    gap={"3rem"}
                     display={"flex"}
-                    flexDirection={"row"}
+                    flexDirection={"column"}
                     justifyContent={"space-around"}
+                    alignItems={"center"}
                 >
                     {results.map((result: ResultProps, index: number) => (
                         <Result 
@@ -49,6 +51,14 @@ function ResultList({
                 </Box>
                 <Button
                     onClick={redirectToHome}
+                    sx={{
+                        color: "black",
+                        bgcolor: "rgba(67, 67, 238, 1)",
+                        borderRadius: "25px",
+                        width: "15rem",
+                        fontSize: "1.2rem",
+                        alignSelf: "center"
+                    }}
                 >
                     Return Home
                 </Button>

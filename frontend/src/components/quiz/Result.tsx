@@ -1,6 +1,6 @@
 import { Box } from "@mui/material"
 import { ResultProps } from "../Intrefaces"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 interface Props {
     result: ResultProps
@@ -12,89 +12,52 @@ function Result({
     selectedAnswer
 }: Props) {
 
-    const [answer, setAnswer] = useState("")
-    const [correct, setCorrect] = useState("") 
-
-    useEffect(() => {
-        const updateAns = () => {
-            if (selectedAnswer === 1) {
-                setAnswer(result.a1)
-                return
-            }
-            if (selectedAnswer === 2) {
-                setAnswer(result.a2)
-                return
-            }
-            if (selectedAnswer === 3) {
-                setAnswer(result.a3)
-                return
-            }
-            if (selectedAnswer === 4) {
-                setAnswer(result.a4)
-                return
-            }
-        }
-
-        const updateCor = () => {
-            if (result.ca === 1) {
-                setCorrect(result.a1)
-                return
-            }
-            if (result.ca === 2) {
-                setCorrect(result.a2)
-                return
-            }
-            if (result.ca === 3) {
-                setCorrect(result.a3)
-                return
-            }
-            if (result.ca === 4) {
-                setCorrect(result.a4)
-                return
-            }
-        }
-
-        updateAns()
-        updateCor()
-    }, [result.a1, result.a2, result.a3, result.a4, result.ca, selectedAnswer])
+    const [isCorrect] = useState(result.ca === selectedAnswer)
 
     return (
         <Box
             display={"flex"}
-            flexDirection={"column"}
-            justifyContent={"space-evenly"}
+            flexDirection={"row"}
+            justifyContent={"space-between"}
+            bgcolor={"rgba(139, 81, 184, 0.8)"}
+            borderRadius={"40px"}
+            width={"80%"}
         >
-            <Box>
+            <Box
+                width={"50%"}
+                alignSelf={"center"}
+            >
                 {`
                 Question: ${result.question}
                 `}
             </Box>
-            {
-                result.correct ? 
+            <Box
+                display={"flex"}
+                flexDirection={"column"}
+                alignItems={"center"}
+                width={"50%"}
+            >
                 <Box
-                    color={"green"}
+                    color={result.ca === 1 ? "green" : isCorrect || selectedAnswer !== 1 ? "black" : "red"}
                 >
-                    {`
-                    Your Answer: ${answer}
-                    `}
+                    {result.a1}
                 </Box>
-                :
-                <>
-                    <Box
-                        color={"red"}    
-                    >
-                        {`
-                        Your Answer: ${answer}
-                        `}
-                    </Box>
-
-                    <Box>
-                        {`
-                        Correct Answer: ${correct}
-                        `}
-                    </Box>
-                </>
-            }
+                <Box
+                    color={result.ca === 2 ? "green" : isCorrect || selectedAnswer !== 2 ? "black" : "red"}
+                >
+                    {result.a2}
+                </Box>
+                <Box
+                    color={result.ca === 3 ? "green" : isCorrect || selectedAnswer !== 3 ? "black" : "red"}
+                >
+                    {result.a3}
+                </Box>
+                <Box
+                    color={result.ca === 4 ? "green" : isCorrect || selectedAnswer !== 4 ? "black" : "red"}
+                >
+                    {result.a4}
+                </Box>
+            </Box>
         </Box>
     )
 }

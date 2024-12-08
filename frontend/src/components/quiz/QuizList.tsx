@@ -4,6 +4,8 @@ import { Box, Button } from "@mui/material"
 import fetch_url from "../../providers/url.provider"
 import { QuizInterface, ResultProps } from "../Intrefaces";
 import ResultList from "./ResultList";
+import Blob from "./assets/Group.svg"
+
 
 interface Answer {
     id: string,
@@ -96,53 +98,99 @@ function QuizList() {
 
     return(
         <>
-            {
-            nr < 5 ?
             <Box
-                height={"90vh"} // Change the height of the section
-                display={"flex"}
-                flexDirection={"column"}
-                justifyContent={"space-between"}
-                alignItems={"center"}
-                fontSize={"2rem"}
+                zIndex={0}
+                position={"absolute"}
+                maxHeight={"100vh"}
+                width={"100%"}
+                overflow={"hidden"}
             >
-            {
-                <Quiz
-                    quiz={quizes[nr]}
-                    setSelectedAnswer={setSelectedAnswer}
-                    selectedAnswer={selectedAnswers[nr]}
-                />
-            }
-            {
-                <Box>
-                    <Button
-                        onClick={() => {
-                            removeLastAnswer()
-                            setNr(nr - 1)
-                        }}
-                        disabled={nr === 0}
-                        >
-                        Prev Question
-                    </Button>
-
-                    <Button
-                        onClick={() => {
-                            addAnswer(quizes[nr].id, selectedAnswers[nr])
-                            setNr(nr + 1)
-                        }}
-                        disabled={selectedAnswers[nr] === 0}
-                        >
-                        {nr === 4 ? <>Finish Quiz</> : <>Next Question</>}
-                    </Button>
-                </Box>
-            }
+                <img width={"100%"} src={Blob} />
             </Box>
-            : 
-            <ResultList 
-                results={results}
-                selectedAnswers={selectedAnswers}
-            />
-            }
+            <Box
+                bgcolor={"rgba(251, 255, 241, 1)"}
+                height={"100%"}
+                width={"100%"}
+                color={"black"}
+                display={"flex"}
+                flexDirection={"row"}
+                justifyContent={"center"}
+            >
+                {
+                nr < 5 ?
+                <Box
+                    height={"90vh"} // Change the height of the section
+                    width={"90%"}
+                    display={"flex"}
+                    flexDirection={"column"}
+                    justifyContent={"space-between"}
+                    alignItems={"center"}
+                    fontSize={"2rem"}
+                    zIndex={2}
+                >
+                {
+                    <Quiz
+                        quiz={quizes[nr]}
+                        setSelectedAnswer={setSelectedAnswer}
+                        selectedAnswer={selectedAnswers[nr]}
+                    />
+                }
+                {
+                    <Box 
+                        display={"flex"}
+                        gap={"2rem"}
+                    >
+                        <Button
+                            onClick={() => {
+                                removeLastAnswer()
+                                setNr(nr - 1)
+                            }}
+                            disabled={nr === 0}
+                            sx={{
+                                bgcolor: nr === 0 ? "grey" : "rgba(67, 67, 238, 1)",
+                                color: "black",
+                                borderRadius: "25px",
+                                fontSize: "1.2rem",
+                                width: "15rem",
+                                transition: "background-color 0.3s", // Smooth transition for hover effect
+                                "&:hover": {
+                                    bgcolor: selectedAnswers[nr] === 0 ? "darkgrey" : "rgba(50, 50, 200, 1)", // Slightly darker shade on hover
+                                }
+                            }}
+                            >
+                            Prev Question
+                        </Button>
+
+                        <Button
+                            onClick={() => {
+                                addAnswer(quizes[nr].id, selectedAnswers[nr])
+                                setNr(nr + 1)
+                            }}
+                            disabled={selectedAnswers[nr] === 0}
+                            sx={{
+                                color: "black",
+                                bgcolor: selectedAnswers[nr] === 0 ? "grey" : "rgba(67, 67, 238, 1)",
+                                borderRadius: "25px",
+                                width: "15rem",
+                                fontSize: "1.2rem",
+                                transition: "background-color 0.3s", // Smooth transition for hover effect
+                                "&:hover": {
+                                    bgcolor: selectedAnswers[nr] === 0 ? "darkgrey" : "rgba(50, 50, 200, 1)", // Slightly darker shade on hover
+                                }
+                            }}
+                            >
+                            {nr === 4 ? <>Finish Quiz</> : <>Next Question</>}
+                        </Button>
+                    </Box>
+                }
+                </Box>
+                : 
+                <ResultList 
+                    results={results}
+                    selectedAnswers={selectedAnswers}
+                />
+                }
+            </Box>
         </>
     )
 }
