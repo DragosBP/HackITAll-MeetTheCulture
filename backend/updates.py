@@ -103,4 +103,25 @@ def get_cooking_recipes():
     #     # print(food_type, link)
     pass
 
+def import_new_events():
+    url = 'https://www.meetup.com/'
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, 'html.parser')
 
+    mongo_client = MongoClient(mongodb_uri)
+    db = mongo_client['quizdb']
+    collection = db['events']
+
+    evs = soup.find_all('div', attrs={'class': "relative z-0 flex h-full break-words bg-transparent bg-white bg-cover bg-clip-padding p-0 transition-shadow duration-300 bg-white px-4 pt-6 pb-5 smd:px-0 smd:pt-0 smd:flex-row smd:justify-start smd:rounded e3uszjm"})
+    for ev in evs:
+        name = ev.text
+        n_en = name.encode("ascii", "ignore")
+        name = n_en.decode()
+        link = ev.a['href']
+        img = ev.img['src']
+        id = collection.estimated_document_count()
+        # name = str(name).strip('')
+        collection.insert_one({'name': name, 'link': link, 'img': img, 'id': id})
+        # collection.delete_one({'name': name})
+
+    # pass

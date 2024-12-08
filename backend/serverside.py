@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
 from flask_cors import CORS
 import random
-from updates import update_country_playlists, update_daily_holiday, get_cooking_recipes
+from updates import update_country_playlists, update_daily_holiday, get_cooking_recipes, import_new_events
 from env import mongodb_uri as uri
 
 app = Flask(__name__)
@@ -128,10 +128,18 @@ def approve_suggestion():
 
 @app.route('/get-events', methods=['GET'])
 def get_events():
-    db = mongo.cx.json
+    db = mongo.cx["quizdb"]
     collection = db.events
     results = list(collection.find({}, {'_id': 0}))
     return jsonify(results)
+
+@app.route('/import-events', methods=['GET'])
+def import_event():
+    # import_new_events()
+    db = mongo.cx["quizdb"]
+    collection = db.events
+    r = list(collection.find({}, {'_id': 0}))
+    return jsonify(r)
 
 if __name__ == "__main__":
     app.run(debug=True)
