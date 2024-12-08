@@ -2,12 +2,11 @@ from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
 from flask_cors import CORS
 import random
-from updates import update_country_playlists, update_daily_holiday, get_cooking_recipes
+from updates import update_country_playlists, update_daily_holiday, get_cooking_recipes, import_new_events
+from env import mongodb_uri as uri
 
 app = Flask(__name__)
 CORS(app)
-
-uri = "mongodb+srv://leonardgciobanu:7u4AhKVnnMqjc8Gu@hackitall.3mrjg.mongodb.net/?retryWrites=true&w=majority&appName=HackITAll"
 
 app.config["MONGO_URI"] = uri
 mongo = PyMongo(app)
@@ -91,6 +90,56 @@ def add_cooking_recipes():
     collection = db.recipes
     results = list(collection.find({}, {'_id': 0}))
     return jsonify(results)
+
+@app.route('/add-suggestion', methods=['POST'])
+def add_suggestion():
+    data = request.json
+    db = mongo.cx["quizdb"]
+    collection = db.pending_suggestions
+    size = collection.estimated_document_count()
+    data['id'] = size
+    collection.insert_one(data)
+    res = list(collection.find({}, {'_id': 0}))
+    return jsonify(res)
+
+@app.route('/get-suggestion', methods=['GET'])
+def get_suggestion():
+    db = mongo.cx["quizdb"]
+    collection = db.pending_suggestions
+    res = list(collection.find({}, {'_id': 0}))
+    if len(res) > 0:
+        res = res[0]
+    return jsonify(res)
+
+@app.route('/approve-suggestion', methods=['POST'])
+def approve_suggestion():
+    data=request.json
+    db = mongo.cx["quizdb"]
+    collection = db.pending_suggestions
+    id = int(data['id'])
+    res = list(collection.find({'id': id}, {'_id':0}))[0]
+    
+    if data['approve'] == 'True':
+        # r = db.create_collection('events')
+        events = db.events
+        events.insert_one(res)
+    collection.delete_one({'id': id})
+    return jsonify({})
+
+@app.route('/get-events', methods=['GET'])
+def get_events():
+    db = mongo.cx["quizdb"]
+    collection = db.events
+    results = list(collection.find({}, {'_id': 0}))
+    return jsonify(results)
+
+@app.route('/import-events', methods=['GET'])
+def import_event():
+    # import_new_events()
+    db = mongo.cx["quizdb"]
+    collection = db.events
+    r = list(collection.find({}, {'_id': 0}))
+    return jsonify(r)
 
 if __name__ == "__main__":
     app.run(debug=True)
