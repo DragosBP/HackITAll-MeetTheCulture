@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
 from flask_cors import CORS
 import random
+from updates import update_country_playlists, update_daily_holiday, get_cooking_recipes
 
 app = Flask(__name__)
 CORS(app)
@@ -66,8 +67,30 @@ def verify():
 
     return jsonify(reply)
 
+@app.route('/music', methods=['GET'])
+def get_top_playlists():
+    update_country_playlists()
+    db = mongo.cx["quizdb"]
+    collection = db.playlists
+    results = list(collection.find({}, {'_id': 0}))
+    return jsonify(results)
 
+@app.route('/daily-holiday', methods=['GET'])
+def get_daily_holiday():
+    update_daily_holiday()
+    db = mongo.cx["quizdb"]
+    # r = db.create_collection('daily_holiday')
+    collection = db.daily_holiday
+    result = list(collection.find({}, {'_id': 0}))[0]
+    return jsonify(result)
+
+@app.route('/get_cooking_recipes', methods=['GET'])
+def add_cooking_recipes():
+    # get_cooking_recipes()
+    db = mongo.cx["quizdb"]
+    collection = db.recipes
+    results = list(collection.find({}, {'_id': 0}))
+    return jsonify(results)
 
 if __name__ == "__main__":
-    # mongo.db.create_collection("quiz")
     app.run(debug=True)
