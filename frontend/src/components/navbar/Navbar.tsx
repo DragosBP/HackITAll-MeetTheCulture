@@ -20,7 +20,7 @@ function Navbar({
             display={"flex"}
             flexDirection={"row"}
             width={"30%"}
-            position={"absolute"}
+            position={"relative"}
             zIndex={20}
             color={"black"}
             fontSize={"5rem"}

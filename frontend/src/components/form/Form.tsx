@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography, Snackbar, Alert } from "@mui/material";
 import fetch_url from "../../providers/url.provider";
 
 const url: string = fetch_url();
-
 
 const CustomForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +10,8 @@ const CustomForm: React.FC = () => {
     description: "",
     link: "",
   });
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -22,21 +23,33 @@ const CustomForm: React.FC = () => {
     console.log("Form submitted:", formData);
 
     fetch(url + "/add-suggestion", {
-        method: "post",headers: {
-            "Content-Type": "application/json" // Ensure the server expects JSON data
-        },
-        body: JSON.stringify(formData) 
-
-    }).then((response) => {
-        if (response.status === 200) {
-            response.json().then((data) => {
-                console.log(data)
-            })
-        } else {
-            console.log("Eroare la trimitere de raspunsuri")
-        }
+      method: "post",
+      headers: {
+        "Content-Type": "application/json", // Ensure the server expects JSON data
+      },
+      body: JSON.stringify(formData),
     })
-    // You can add further logic here (e.g., send data to the backend)
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then((data) => {
+            console.log(data);
+            setSnackbarOpen(true); // Show the Snackbar on success
+          });
+        } else {
+          console.error("Error submitting data");
+        }
+      })
+      .catch((error) => console.error("Error:", error));
+  };
+
+  const handleSnackbarClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
   };
 
   return (
@@ -54,7 +67,7 @@ const CustomForm: React.FC = () => {
         borderRadius: "0.5rem",
         backgroundColor: "#d0aba0", // Set the background color to #d0aba0
         boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-        marginBottom: "5%"
+        marginBottom: "5%",
       }}
     >
       <Typography variant="h5" sx={{ textAlign: "center", marginBottom: 2 }}>
@@ -93,6 +106,21 @@ const CustomForm: React.FC = () => {
       <Button type="submit" variant="contained" color="primary" fullWidth>
         Submit
       </Button>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={5000} // Closes after 5 seconds
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }} // Bottom-right position
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Successfully uploaded!
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

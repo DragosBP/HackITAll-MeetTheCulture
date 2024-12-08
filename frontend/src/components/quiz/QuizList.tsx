@@ -147,7 +147,7 @@ function QuizList() {
                             }}
                             disabled={nr === 0}
                             sx={{
-                                bgcolor: nr === 0 ? "grey" : "rgba(67, 67, 238, 1)",
+                                bgcolor: nr === 0 ? "#f0f0f0" : "rgba(67, 67, 238, 1)",
                                 color: "black",
                                 borderRadius: "25px",
                                 fontSize: "1.2rem",
@@ -169,7 +169,7 @@ function QuizList() {
                             disabled={selectedAnswers[nr] === 0}
                             sx={{
                                 color: "black",
-                                bgcolor: selectedAnswers[nr] === 0 ? "grey" : "rgba(67, 67, 238, 1)",
+                                bgcolor: selectedAnswers[nr] === 0 ? "#f0f0f0" : "rgba(67, 67, 238, 1)",
                                 borderRadius: "25px",
                                 width: "15rem",
                                 fontSize: "1.2rem",

@@ -1,5 +1,6 @@
 import { Box } from "@mui/material"
 import { useEffect, useState } from "react"
+import { gsap } from "gsap"
 import Blob from "./assets/Group.svg"
 import TakeQuiz from "./TakeQuiz"
 import Title from "./Title"
@@ -7,7 +8,6 @@ import Navbar from "../../components/navbar/Navbar"
 
 function Home() {
     const [tookQuiz, setTookQuiz] = useState<null | boolean>(null)
-
 
     useEffect(() => {
         const checkQuizStatus = () => {
@@ -28,6 +28,16 @@ function Home() {
 
         checkQuizStatus();
     }, [])
+
+    useEffect(() => {
+        // Fade-in effect for TakeQuiz and Title components
+        if (tookQuiz === false) {
+            gsap.fromTo(".fade-in", 
+                { opacity: 0 }, 
+                { opacity: 1, duration: 1, stagger: 0.5 }
+            );
+        }
+    }, [tookQuiz])
 
     return (
         <Box
@@ -68,8 +78,12 @@ function Home() {
                         {
                             !tookQuiz ? 
                             <>
-                            <TakeQuiz />
-                            <Title />
+                                <Box className="fade-in">
+                                    <TakeQuiz />
+                                </Box>
+                                <Box className="fade-in">
+                                    <Title />
+                                </Box>
                             </>
                             :
                             <>
