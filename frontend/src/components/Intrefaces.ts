@@ -21,5 +21,23 @@ export interface SongInterface {
     name: string
     artist: string
     country: string
+    img: string
     link: string
+}
+
+export interface SpecialDayInterface {
+    date: string,
+    description: string
+}
+
+export interface FoodInterface {
+    food_type: string,
+    img: string,
+    link: string
+}
+
+export interface EventInterface {
+    img:string,
+    link:string,
+    name:string,
 }

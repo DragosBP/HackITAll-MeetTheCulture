@@ -54,7 +54,7 @@ function QuizList() {
 
     useEffect(() => {
         const sendAnswers = () => {
-            fetch(url + "verify", {
+            fetch(url + "/verify", {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json" // Ensure the server expects JSON data
@@ -108,7 +108,7 @@ function QuizList() {
                 <img width={"100%"} src={Blob} />
             </Box>
             <Box
-                bgcolor={"rgba(251, 255, 241, 1)"}
+                bgcolor={"#fdf5ea"}
                 height={"100%"}
                 width={"100%"}
                 color={"black"}

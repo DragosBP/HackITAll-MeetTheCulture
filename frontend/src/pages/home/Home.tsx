@@ -31,7 +31,7 @@ function Home() {
 
     return (
         <Box
-            bgcolor={"rgba(251, 255, 241, 1)"}
+            bgcolor={"#fdf5ea"}
             height={"100%"}
             width={"100%"}
         >

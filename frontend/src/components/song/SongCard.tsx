@@ -10,12 +10,10 @@ function SongCard({
     song
 }: Props) {
 
-
-
     return (
         <>
         <Box
-            bgcolor={"black"}
+            bgcolor={"transparent"}
             display={"flex"}
             flexDirection={"column"}
             alignItems={"center"}
@@ -32,6 +30,9 @@ function SongCard({
                 "&:hover .play-button": {
                     opacity: 1, // Make the button fully visible when hovering
                     transform: "translateY(0px)",
+                },
+                "&:hover .ceva": {
+                    color: "white"
                 }
             }}
         >
@@ -42,8 +43,8 @@ function SongCard({
                 borderRadius={"0.3rem"}
             >
                 <img 
-                    src={Placeholder}
-                    alt="Song Thumbnail"
+                    src={song.img}
+                    alt={Placeholder}
                     style={{
                         width: "100%",
                         height: "100%",
@@ -58,7 +59,10 @@ function SongCard({
                 textAlign={"start"}
             >
                 <Box
+                    className="ceva" 
+                    
                     fontSize={"1.2rem"}
+                    color={"black"}
                 >
                     {song.name}
                 </Box>
@@ -68,7 +72,7 @@ function SongCard({
                     fontWeight={"500"}
                     color={"gray"}
                 >
-                    {song.country}
+                    Top Songs
                 </Box>
             </Box>
             <Box
