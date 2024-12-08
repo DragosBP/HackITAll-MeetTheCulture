@@ -52,8 +52,9 @@ function DaySection() {
             <Button
                 onClick={() => navigate("/quiz")}
                 sx={{
-                    bgcolor: "rgba(139, 81, 184, 0.8)", // Initial background color
+                    bgcolor: "#FF88DC", // Initial background color
                     borderRadius: "40px",
+                    border: "2px solid #FF70C8",
                     width: "10%",
                     color: "rgba(0, 0, 0, 1)",
                     fontFamily: 'Inter',
@@ -63,6 +64,7 @@ function DaySection() {
                     transition: "background-color 0.3s", // Smooth transition
                     "&:hover": {
                         bgcolor: "rgba(139, 81, 184, 1)", // Darker background color on hover
+                        borderColor: "rgba(100, 50, 150, 1)", // Darker border on hover
                     }
                 }}
             >
