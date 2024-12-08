@@ -1,11 +1,13 @@
-import { Button } from "@mui/material"
+import { Box } from "@mui/material"
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import Blob from "./assets/Group.svg"
+import TakeQuiz from "./TakeQuiz"
+import Title from "./Title"
+import Navbar from "../../components/navbar/Navbar"
 
 function Home() {
     const [tookQuiz, setTookQuiz] = useState<null | boolean>(null)
 
-    const navigate = useNavigate()
 
     useEffect(() => {
         const checkQuizStatus = () => {
@@ -28,31 +30,60 @@ function Home() {
     }, [])
 
     return (
-        <>
-            {
-            tookQuiz !== null ?
+        <Box
+            bgcolor={"rgba(251, 255, 241, 1)"}
+            height={"100%"}
+            width={"100%"}
+        >
+            <Navbar 
+                isHome={true}
+                isLearn={false}
+                isAbout={false}
+            />
+            <Box
+                zIndex={0}
+                position={"absolute"}
+                top={0}
+                left={0}
+                width={"100vw"} // Full viewport width
+                height={"100vh"} // Full viewport height
+                overflow={"hidden"}
+            >
+                <img 
+                    src={Blob} 
+                    style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover", // Ensures the image covers the container
+                    }} 
+                />
+            </Box>
+
+            <Box
+                zIndex={2}
+            >
+                {
+                tookQuiz !== null ?
+                    <>
+                        {
+                            !tookQuiz ? 
+                            <>
+                            <TakeQuiz />
+                            <Title />
+                            </>
+                            :
+                            <>
+                                You already took the quiz today
+                            </>
+                        }
+                    </>
+                : 
                 <>
-                    {
-                        !tookQuiz ? 
-                        <>
-                            <Button
-                                onClick={() => navigate("/quiz")}
-                            >
-                                Take today's quiz
-                            </Button>
-                        </>
-                        :
-                        <>
-                            You already took the quiz today
-                        </>
-                    }
+                    Loading
                 </>
-            : 
-            <>
-                Loading
-            </>
-            }
-        </>
+                }
+            </Box>
+        </Box>
     )
 }
 
