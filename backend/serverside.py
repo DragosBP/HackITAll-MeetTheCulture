@@ -107,8 +107,6 @@ def get_suggestion():
     db = mongo.cx["quizdb"]
     collection = db.pending_suggestions
     res = list(collection.find({}, {'_id': 0}))
-    if len(res) > 0:
-        res = res[0]
     return jsonify(res)
 
 @app.route('/approve-suggestion', methods=['POST'])

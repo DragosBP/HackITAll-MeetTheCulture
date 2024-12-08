@@ -1,8 +1,8 @@
 import { Box } from "@mui/material"
-import Events from "../../components/event/Event"
+import CustomForm from "../../components/form/Form"
 
-function EventSection() {
-    return(
+function ForumSection() {
+    return (
         <Box 
             color={"black"}
             display={"flex"}
@@ -17,17 +17,11 @@ function EventSection() {
                 fontSize={"3.5rem"}
                 marginTop={"10%"}
             >
-                Participate in ...!
+                Suggest your own events!
             </Box>
-            <Box
-                width={"100%"}
-                height={"100%"}
-                paddingLeft={"17%"}
-            >
-                <Events/>
-            </Box>
+            <CustomForm/>
         </Box>
     )
 }
 
-export default EventSection
+export default ForumSection

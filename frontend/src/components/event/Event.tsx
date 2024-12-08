@@ -48,6 +48,8 @@ function Events () {
                 centerPadding="0px"
                 slidesToShow={4}
                 slidesPerRow={1}
+                autoplay={true}
+                autoplaySpeed={4000}
                 adaptiveHeight={true}
                 prevArrow={<img src={LeftArrow}/>}
                 nextArrow={<img src={RightArrow}/>}

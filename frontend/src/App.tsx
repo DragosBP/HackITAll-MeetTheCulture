@@ -9,6 +9,7 @@ import Learn from './pages/learn/Learn'
 import SpecialDay from './components/specialDay/SpecialDay'
 import Food from './components/food/Food'
 import Events from './components/event/Event'
+import AdminPage from './pages/admin/Admin'
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/song" element={<SongList />} /> {/* TODO remove this after testing*/}
             <Route path="/food" element={<Food />} /> {/* TODO remove this after testing*/}
             <Route path="/event" element={<Events />} /> {/* TODO remove this after testing*/}
+            <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </Router>
 

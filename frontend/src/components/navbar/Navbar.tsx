@@ -16,11 +16,12 @@ function Navbar({
 }: Props) {
     return (
         <Box
+
             display={"flex"}
             flexDirection={"row"}
             width={"30%"}
             position={"absolute"}
-            zIndex={9}
+            zIndex={20}
             color={"black"}
             fontSize={"5rem"}
             gap={"10%"}

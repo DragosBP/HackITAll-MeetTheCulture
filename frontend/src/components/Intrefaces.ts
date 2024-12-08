@@ -41,3 +41,10 @@ export interface EventInterface {
     link:string,
     name:string,
 }
+
+export interface SugestionInterface {
+    id: number,
+    name: string,
+    description: string,
+    link: string,
+}
