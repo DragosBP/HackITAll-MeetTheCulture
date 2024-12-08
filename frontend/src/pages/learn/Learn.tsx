@@ -4,6 +4,7 @@ import DaySection from "./DaySection";
 import SongSection from "./SongSection";
 import EventSection from "./EventSection";
 import FoodSection from "./FoodSection";
+import ForumSection from "./ForumSection";
 
 function Learn() {
     return (
@@ -44,6 +45,9 @@ function Learn() {
                 <Button onClick={() => document.getElementById('section-4')?.scrollIntoView({ behavior: "smooth" })} sx={{color: "black", fontSize: "1rem"}}>
                     Events
                 </Button>
+                <Button onClick={() => document.getElementById('section-5')?.scrollIntoView({ behavior: "smooth" })} sx={{color: "black", fontSize: "1rem"}}>
+                    Sugest
+                </Button>
             </Box>
 
             {/* Sections */}
@@ -62,6 +66,10 @@ function Learn() {
 
             <Box id="section-4" height={"90vh"}>
                 <EventSection />
+            </Box>
+
+            <Box id="section-5" height={"90vh"}>
+                <ForumSection />
             </Box>
         </Box>
 
