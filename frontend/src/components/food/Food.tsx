@@ -50,6 +50,8 @@ function Food() {
                 slidesToShow={2}
                 slidesPerRow={2}
                 adaptiveHeight={true}
+                autoplay={true}
+                autoplaySpeed={2000}
                 prevArrow={<img src={LeftArrow}/>}
                 nextArrow={<img src={RightArrow}/>}
                 

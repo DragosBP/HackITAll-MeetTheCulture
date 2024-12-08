@@ -1,4 +1,5 @@
 import { Box } from "@mui/material"
+import CustomForm from "../../components/form/Form"
 
 function ForumSection() {
     return (
@@ -16,8 +17,9 @@ function ForumSection() {
                 fontSize={"3.5rem"}
                 marginTop={"10%"}
             >
-                Suggest your own suggestions!
+                Suggest your own events!
             </Box>
+            <CustomForm/>
         </Box>
     )
 }

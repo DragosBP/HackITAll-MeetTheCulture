@@ -23,7 +23,6 @@ function EventSection() {
                 width={"100%"}
                 height={"100%"}
                 paddingLeft={"17%"}
-                paddingBottom={"3%"}
             >
                 <Events/>
             </Box>
