@@ -84,7 +84,7 @@ def get_daily_holiday():
     result = list(collection.find({}, {'_id': 0}))[0]
     return jsonify(result)
 
-@app.route('/get_cooking_recipes', methods=['GET'])
+@app.route('/get-cooking-recipes', methods=['GET'])
 def add_cooking_recipes():
     # get_cooking_recipes()
     db = mongo.cx["quizdb"]

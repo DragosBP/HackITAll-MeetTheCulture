@@ -6,32 +6,30 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from datetime import datetime
 from env import SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, mongodb_uri
 
+def get_key_from_value(dict, value):
+    for key, val in dict.items():
+         if val == value:
+              return key
+
+def get_country_code(country):
+    url = 'https://flagcdn.com/en/codes.json'
+    r = requests.get(url)
+    content = r.json()
+    return get_key_from_value(content, country)
+
 def get_spotify_playlist(country, playlists_collection):
     sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET))
     query = "q=top+songs+" + country
     result = sp.search(q=query, type="playlist")
     items = result['playlists']['items']
 
-    # url = 'https://iso3166-updates.com/api/name/' + country
-    url = 'https://flagcdn.com/en/codes.json'
-    r = requests.get(url)
-    # soup = BeautifulSoup(r.text, "lxml")
-    # code = soup.text[2:4]
-    # print(code, end='\n\n\n')
-    content = r.json()
-    for key, value in content.items():
-         if value == country:
-              code = key
-    # print(code, end='\n\n')
+    code = get_country_code(country)
     img = 'https://flagcdn.com/256x192/{}.png'.format(code)
 
-    cnt = 1
     for item in items:
-        if item is not None and cnt <= 5:
-                # img = 
-                playlist = item['external_urls']['spotify']
-                playlists_collection.update_one({"name": "Top Songs - {} {}".format(country, cnt)}, {"$set":{"link": playlist, "img": img}}, upsert=True)
-                cnt += 1
+        if item is not None:
+            playlist = item['external_urls']['spotify']
+            playlists_collection.update_one({"name": country}, {"$set":{"link": playlist, "img": img}}, upsert=True)
     pass
 
 def update_country_playlists():
@@ -47,26 +45,34 @@ def update_country_playlists():
         get_spotify_playlist(c, playlists_collection)
     pass
 
-def update_daily_holiday():
+def get_daily_holiday_link_and_date():
     month = datetime.today().strftime('%B')
     day = datetime.today().strftime('%d')
     if day[0] == '0':
         day = day[1:]
     path = month.lower() + '-' + day + '-holidays/'
+    path = 'https://nationaltoday.com/' + path
     today = month.lower() + '-' + day
-    r = requests.get('https://nationaltoday.com/' + path)
-    soup = BeautifulSoup(r.text, "html.parser")
-    res = soup.find('div', attrs={'class':'day-content'})
-    day_info = res.text
+    return path, today
 
+def renew_daily_holiday(today, description):
     mongo_client = MongoClient(mongodb_uri)
     db = mongo_client['quizdb']
     collection = db['daily_holiday']
     collection.drop()
     db.create_collection('daily_holiday')
     collection = db['daily_holiday']
-    collection.insert_one({'date': today, "description": day_info})
-    # print(day_info)
+    collection.insert_one({'date': today, "description": description})
+    pass
+
+def update_daily_holiday():
+    
+    path, today = get_daily_holiday_link_and_date()
+    r = requests.get(path)
+    soup = BeautifulSoup(r.text, "html.parser")
+    res = soup.find('div', attrs={'class':'day-content'})
+    description = res.text
+    renew_daily_holiday(today, description)
     pass
 
 def get_cooking_recipes():
