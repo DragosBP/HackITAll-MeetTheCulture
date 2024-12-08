@@ -7,6 +7,7 @@ function Learn() {
             bgcolor={"rgba(251, 255, 241, 1)"}
             height={"100%"}
             width={"100%"}
+            overflow={"scroll"}
         >
             <Navbar 
                 isHome={true}

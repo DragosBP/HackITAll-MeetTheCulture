@@ -21,5 +21,6 @@ export interface SongInterface {
     name: string
     artist: string
     country: string
+    img: string
     link: string
 }

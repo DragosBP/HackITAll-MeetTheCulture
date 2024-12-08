@@ -54,7 +54,7 @@ function QuizList() {
 
     useEffect(() => {
         const sendAnswers = () => {
-            fetch(url + "verify", {
+            fetch(url + "/verify", {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json" // Ensure the server expects JSON data

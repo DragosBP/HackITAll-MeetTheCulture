@@ -10,8 +10,6 @@ function SongCard({
     song
 }: Props) {
 
-
-
     return (
         <>
         <Box
@@ -42,8 +40,8 @@ function SongCard({
                 borderRadius={"0.3rem"}
             >
                 <img 
-                    src={Placeholder}
-                    alt="Song Thumbnail"
+                    src={song.img}
+                    alt={Placeholder}
                     style={{
                         width: "100%",
                         height: "100%",
@@ -68,7 +66,7 @@ function SongCard({
                     fontWeight={"500"}
                     color={"gray"}
                 >
-                    {song.country}
+                    Top Songs
                 </Box>
             </Box>
             <Box

@@ -5,31 +5,52 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
 import { SongInterface } from "../Intrefaces";
+import fetch_url from "../../providers/url.provider";
+
+const url = fetch_url()
 
 function SongList() {
     const [songs, setSongs] = useState<SongInterface[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const song = {
-            name: "Costel Biju",
-            artist: "Al mai mare campion",
-            country: "Tara valorosilor",
-            link: "https://www.youtube.com",
-        };
-    
+        
+        let isFetched = false;
 
-        const fetchSongs = () => {
-            setSongs([song, song, song, song, song])
+        const func = async () => {
+
+            if (isFetched)
+                return
+
+            const response =  await fetch(url + "/music", {
+                method: "get"
+            })
+
+            if (response.status === 200) {
+                response.json().then((data) => {
+                    setSongs(data)
+                })
+            } else {
+                console.log("Problem with fetching quizes")
+            }
         }
 
-        fetchSongs()
+        func()
+
+        return () => {
+            isFetched = true; 
+        };
     }, [])
+
+    useEffect(() => {
+        setIsLoading(false)
+    }, [songs])
 
     return (
         <Box
             width={"48rem"}
         >
-            {songs ? 
+            {!isLoading ? 
                 <Slider
                 swipeToSlide={true}
                 dots={true}
@@ -42,8 +63,9 @@ function SongList() {
                 {songs.map((song, index) => (
                     <Box
                         padding={"1rem"}
+                        key={index}
                     >
-                        <SongCard song={song} key={index} />
+                        <SongCard song={song}  />
                     </Box>
                 ))}
             </Slider>
