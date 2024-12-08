@@ -15,7 +15,7 @@ function AdminPage() {
     useEffect(() => {
         const fetch_sugestions = () => {
             fetch(url + "/get-suggestion", {
-                method: "GET",
+                method: "get",
             })
             .then((response) => {
                 if (response.status === 200) {
@@ -33,7 +33,7 @@ function AdminPage() {
 
         const fetch_event = () => {
             fetch(url + "/get-events", {
-                method: "GET",
+                method: "get",
             })
             .then((response) => {
                 if (response.status === 200) {
@@ -65,13 +65,13 @@ function AdminPage() {
                 id: id
             })
         }).then(() => {
-            fetch(url + "/get-events", {
-                method: "GET",
+            fetch(url + "/get-suggestion", {
+                method: "get",
             })
             .then((response) => {
                 if (response.status === 200) {
                     response.json().then((data) => {
-                        setEvents(data);
+                        setSugestions(data);
                         console.log(data)
                     });
                 } else {
@@ -80,28 +80,43 @@ function AdminPage() {
             })
             .catch((error) => {
                 console.log("Error fetching suggestions:", error);
+            }).then(() => {
+                fetch(url + "/get-events", {
+                    method: "get",
+                })
+                    .then((response) => {
+                        if (response.status === 200) {
+                            response.json().then((data) => {
+                                setEvents(data);
+                            });
+                        } else {
+                            console.log("Problem with fetching suggestions");
+                        }
+                    })
+                    .catch((error) => {
+                        console.log("Error fetching suggestions:", error);
+                    });
             });
         })
     }
 
     const handleDelete = (id: number) => {
-        fetch(url + "/approve-suggestion", {
+        fetch(url + "/discard-event", {
             method: "post",
             headers: {
                 "Content-Type": "application/json" // Ensure the server expects JSON data
             },
             body: JSON.stringify({
-                approve: answer === true ? "True" : false,
                 id: id
             })
         }).then(() => {
-            fetch(url + "/get-suggestion", {
-                method: "GET",
+            fetch(url + "/get-events", {
+                method: "get",
             })
                 .then((response) => {
                     if (response.status === 200) {
                         response.json().then((data) => {
-                            setSugestions(data);
+                            setEvents(data);
                         });
                     } else {
                         console.log("Problem with fetching suggestions");

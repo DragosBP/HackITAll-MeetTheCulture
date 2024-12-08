@@ -66,6 +66,15 @@ def verify():
 
     return jsonify(reply)
 
+@app.route('/discard-event', methods=['POST'])
+def discard_event():
+    data=request.json
+    db = mongo.cx["quizdb"]
+    collection = db.events
+    id = int(data['id'])
+    collection.delete_one({'id': id})
+    return jsonify({})
+
 @app.route('/music', methods=['GET'])
 def get_top_playlists():
     update_country_playlists()
