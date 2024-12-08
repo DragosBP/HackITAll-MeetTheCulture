@@ -102,3 +102,5 @@ def get_cooking_recipes():
     #     collection.insert_one({'food_type': food_type, 'link': link})
     #     # print(food_type, link)
     pass
+
+
