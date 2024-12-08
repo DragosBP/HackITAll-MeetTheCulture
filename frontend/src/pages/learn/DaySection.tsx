@@ -47,7 +47,7 @@ function DaySection() {
                 fontWeight={"600"}
                 fontSize={"1.2rem"}
             >
-                If you haven't already, you can test your knwledge about other cultures here:
+                If you haven't already, you can test your knowledge about other cultures here:
             </Box>
             <Button
                 onClick={() => navigate("/quiz")}

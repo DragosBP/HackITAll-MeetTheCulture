@@ -18,7 +18,7 @@ function FoodSection() {
                 fontSize={"3.5rem"}
                 marginTop={"10%"}
             >
-                Delinquish in some foreign delicacies!
+                Delight in some foreign delicacies!
             </Box>
             <Box
                 width={"100%"}
