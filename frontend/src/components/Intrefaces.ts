@@ -26,7 +26,7 @@ export interface SongInterface {
 }
 
 export interface SpecialDayInterface {
-    day: string,
+    date: string,
     description: string
 }
 
@@ -34,4 +34,10 @@ export interface FoodInterface {
     food_type: string,
     img: string,
     link: string
+}
+
+export interface EventInterface {
+    img:string,
+    link:string,
+    name:string,
 }

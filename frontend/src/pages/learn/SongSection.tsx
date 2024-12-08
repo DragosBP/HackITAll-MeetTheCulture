@@ -5,7 +5,6 @@ function SongSection() {
     return(
         <Box 
             color={"black"}
-            paddingTop={"5%"}
             display={"flex"}
             flexDirection={"column"}
             height={"100%"}
@@ -16,7 +15,7 @@ function SongSection() {
                 textAlign={"center"}
                 // marginTop={"20%"}
                 alignContent={"center"}
-                fontSize={"3rem"}
+                fontSize={"3.5rem"}
             >
                 Listen to the top songs of today from different cultures.
             </Box>

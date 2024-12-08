@@ -4,13 +4,11 @@ import DaySection from "./DaySection";
 import SongSection from "./SongSection";
 import EventSection from "./EventSection";
 import FoodSection from "./FoodSection";
-import SongBlop from "./assets/SongBlop.svg"
-
 
 function Learn() {
     return (
         <Box
-            bgcolor={"rgba(251, 255, 241, 1)"}
+            bgcolor={"#fdf5ea"}
             height={"100%"}
             width={"100%"}
             overflow={"scroll"}
@@ -54,15 +52,15 @@ function Learn() {
                 <DaySection />
             </Box>
 
-            <Box id="section-2" height={"100vh"}>
+            <Box id="section-2" height={"90vh"}>
                 <SongSection />
             </Box>
 
-            <Box id="section-3" height={"100vh"}>
+            <Box id="section-3" height={"90vh"}>
                 <FoodSection />
             </Box>
 
-            <Box id="section-4" height={"100vh"}>
+            <Box id="section-4" height={"90vh"}>
                 <EventSection />
             </Box>
         </Box>
