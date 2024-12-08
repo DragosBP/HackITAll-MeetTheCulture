@@ -6,6 +6,8 @@ import SongList from './components/song/SongList'
 import { Box } from '@mui/material'
 import Logo from './logo/Logo'
 import Learn from './pages/learn/Learn'
+import SpecialDay from './components/specialDay/SpecialDay'
+import Food from './components/food/Food'
 
 function App() {
 
@@ -16,13 +18,15 @@ function App() {
       flexDirection="column"
       height="100vh" // Set to full viewport height
     >
-      <Logo/>
+      {/* <Logo/> */}
       <Router>
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/quiz" element={<QuizPage />} />
             <Route path="/learn" element={<Learn />} />
+            <Route path='/day' element={<SpecialDay />} /> {/* TODO remove this after testing*/}
             <Route path="/song" element={<SongList />} /> {/* TODO remove this after testing*/}
+            <Route path="/food" element={<Food />} /> {/* TODO remove this after testing*/}
         </Routes>
       </Router>
 

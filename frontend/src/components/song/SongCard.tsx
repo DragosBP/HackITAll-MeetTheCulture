@@ -13,6 +13,7 @@ function SongCard({
     return (
         <>
         <Box
+            
             bgcolor={"black"}
             display={"flex"}
             flexDirection={"column"}
@@ -57,6 +58,7 @@ function SongCard({
             >
                 <Box
                     fontSize={"1.2rem"}
+                    color={"white"}
                 >
                     {song.name}
                 </Box>

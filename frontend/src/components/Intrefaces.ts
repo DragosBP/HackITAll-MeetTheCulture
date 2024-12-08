@@ -24,3 +24,14 @@ export interface SongInterface {
     img: string
     link: string
 }
+
+export interface SpecialDayInterface {
+    day: string,
+    description: string
+}
+
+export interface FoodInterface {
+    food_type: string,
+    img: string,
+    link: string
+}

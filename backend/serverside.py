@@ -73,7 +73,6 @@ def get_top_playlists():
     db = mongo.cx["quizdb"]
     collection = db.playlists
     results = list(collection.find({}, {'_id': 0}))
-    print(results)
     return jsonify(results)
 
 @app.route('/daily-holiday', methods=['GET'])

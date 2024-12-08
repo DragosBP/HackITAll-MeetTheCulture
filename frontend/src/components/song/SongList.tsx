@@ -6,6 +6,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
 import { SongInterface } from "../Intrefaces";
 import fetch_url from "../../providers/url.provider";
+import RightArrow from "./assets/Right.svg"
+import LeftArrow from "./assets/Left.svg"
 
 const url = fetch_url()
 
@@ -13,6 +15,7 @@ function SongList() {
     const [songs, setSongs] = useState<SongInterface[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    
     useEffect(() => {
         
         let isFetched = false;
@@ -31,7 +34,7 @@ function SongList() {
                     setSongs(data)
                 })
             } else {
-                console.log("Problem with fetching quizes")
+                console.log("Problem with fetching songs")
             }
         }
 
@@ -59,6 +62,8 @@ function SongList() {
                 slidesToShow={3}
                 slidesToScroll={1}
                 adaptiveHeight={true}
+                prevArrow={<img src={LeftArrow}/>}
+                nextArrow={<img src={RightArrow}/>}
             >
                 {songs.map((song, index) => (
                     <Box

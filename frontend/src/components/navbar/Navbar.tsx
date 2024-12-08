@@ -18,7 +18,7 @@ function Navbar({
         <Box
             display={"flex"}
             flexDirection={"row"}
-            width={"50%"}
+            width={"30%"}
             position={"absolute"}
             zIndex={9}
             color={"black"}
