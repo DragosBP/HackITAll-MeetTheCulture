@@ -37,6 +37,7 @@ export interface FoodInterface {
 }
 
 export interface EventInterface {
+    id: number,
     img:string,
     link:string,
     name:string,
