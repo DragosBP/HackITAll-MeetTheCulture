@@ -120,7 +120,8 @@ def import_new_events():
         link = ev.a['href']
         img = ev.img['src']
         id = collection.estimated_document_count()
-        # name = str(name).strip('')
+        name = name.split(sep='Hosted')[0]
+        # print(name)
         collection.insert_one({'name': name, 'link': link, 'img': img, 'id': id})
         # collection.delete_one({'name': name})
 
