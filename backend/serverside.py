@@ -124,10 +124,20 @@ def approve_suggestion():
     collection.delete_one({'id': id})
     return jsonify({})
 
+@app.route('/discard-event', methods=['POST'])
+def discard_event():
+    data=request.json
+    db = mongo.cx["quizdb"]
+    collection = db.events
+    id = int(data['id'])
+    collection.delete_one({'id': id})
+    return jsonify({})
+
 @app.route('/get-events', methods=['GET'])
 def get_events():
     db = mongo.cx["quizdb"]
     collection = db.events
+    # collection.delete_one({'name':'Test'})
     results = list(collection.find({}, {'_id': 0}))
     return jsonify(results)
 
